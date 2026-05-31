@@ -37,3 +37,11 @@ gas-snapshot/
 
 # Snapshot cheatcodes output
 snapshots/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Ignore local simulated deployments
+deployments/hardhatMainnet.json
+deployments/undefined.json
