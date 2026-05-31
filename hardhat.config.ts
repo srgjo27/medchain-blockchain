@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY ?? "";
-const POLYGON_MUMBAI_RPC   = process.env.POLYGON_MUMBAI_RPC   ?? "";
+const POLYGON_AMOY_RPC     = process.env.POLYGON_AMOY_RPC     ?? "";
 const POLYGON_MAINNET_RPC  = process.env.POLYGON_MAINNET_RPC  ?? "";
 
 export default defineConfig({
@@ -34,11 +34,12 @@ export default defineConfig({
       chainType: "l1",
     },
 
-    mumbai: {
+    amoy: {
       type: "http",
       chainType: "l1",
-      url: POLYGON_MUMBAI_RPC,
+      url: POLYGON_AMOY_RPC,
       accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
+      chainId: 80002,
     },
 
     polygon: {

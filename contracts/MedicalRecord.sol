@@ -14,8 +14,8 @@ contract MedicalRecord is Ownable {
     mapping(string => mapping(string => HashEntry)) private _entries;
     mapping(string => uint256) private _docCount;
 
-    event HashStored(string indexed userId, string indexed docId, string hash, uint256 timestamp);
-    event HashRevoked(string indexed userId, string indexed docId, uint256 timestamp);
+    event HashStored(string userId, string docId, string hash, uint256 timestamp);
+    event HashRevoked(string userId, string docId, uint256 timestamp);
 
     error HashAlreadyExists(string userId, string docId);
     error HashNotFound(string userId, string docId);

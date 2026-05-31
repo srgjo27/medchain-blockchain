@@ -16,7 +16,12 @@ async function main() {
   console.log("═══════════════════════════════════════");
   console.log(`\nNetwork  : ${conn.networkName}`);
 
-  const [deployer] = await ethers.getSigners();
+  const signers = await ethers.getSigners();
+  if (signers.length === 0) {
+    console.error("\nError: No signers found. Please configure DEPLOYER_PRIVATE_KEY in your .env file.");
+    process.exit(1);
+  }
+  const deployer = signers[0];
   const balance = await ethers.provider.getBalance(deployer.address);
   console.log(`Deployer : ${deployer.address}`);
   console.log(`Balance  : ${ethers.formatEther(balance)} MATIC`);
