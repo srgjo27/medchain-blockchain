@@ -1,57 +1,51 @@
-# Sample Hardhat 3 Project (`mocha` and `ethers`)
+# MedChain Blockchain
 
-This project showcases a Hardhat 3 project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+Sistem berbasis blockchain untuk menjamin integritas dan keaslian dokumen rekam medis menggunakan *cryptographic hash* (SHA-256) pada jaringan Ethereum.
 
-To learn more about Hardhat 3, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3](https://hardhat.org/hardhat3-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+Proyek ini dibangun menggunakan **Hardhat 3** dengan Solidity untuk smart contract, serta TypeScript untuk pengujian integrasi dan naskah penyebaran (*deployment scripts*).
 
-## Project Overview
+## Fitur Utama
 
-This example project includes:
+- **Anchoring Registry**: Menyimpan sidik jari digital (hash SHA-256) dari berkas rekam medis ke dalam blockchain.
+- **Verifikasi Integritas**: Memverifikasi apakah dokumen rekam medis telah dimanipulasi atau masih asli.
+- **Pencabutan Akses (Revocation)**: Pemilik kontrak (misalnya institusi medis) dapat mencabut validitas hash rekam medis tertentu jika diperlukan.
+- **Keamanan Akses**: Menggunakan pustaka OpenZeppelin `Ownable` untuk memastikan hanya pihak berwenang yang dapat memodifikasi status rekam medis di blockchain.
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+## Struktur Proyek
 
-## Usage
+```text
+contracts/        # Kontrak pintar Solidity (MedicalRecord.sol)
+test/             # Unit test dan integrasi TypeScript (MedicalRecord.ts)
+scripts/          # Naskah deploy/interaksi (deploy.ts)
+hardhat.config.ts # Konfigurasi Hardhat
+```
 
-### Running Tests
+## Prasyarat
 
-To run all the tests in the project, execute the following command:
+Pastikan Anda memiliki:
+- Node.js (versi 18+)
+- npm / yarn
+
+## Penggunaan
+
+### 1. Instalasi Dependensi
+
+```shell
+npm install
+```
+
+### 2. Menjalankan Pengujian
+
+Menjalankan seluruh rangkaian tes unit:
 
 ```shell
 npx hardhat test
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
+### 3. Penyebaran Kontrak (Deployment)
+
+Jalankan skrip deploy ke jaringan target (misal lokal):
 
 ```shell
-npx hardhat test solidity
-npx hardhat test mocha
-```
-
-### Make a deployment to Sepolia
-
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
-
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
+npx hardhat run scripts/deploy.ts
 ```
